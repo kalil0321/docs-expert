@@ -13,9 +13,9 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/docs-expert"><img src="https://img.shields.io/npm/v/docs-expert?color=8b5cf6&label=npm" alt="npm"></a>
   <a href="https://github.com/kalil0321/docs-expert"><img src="https://img.shields.io/badge/license-MIT-8b5cf6" alt="license"></a>
+  <a href="https://github.com/kalil0321/docs-expert"><img src="https://img.shields.io/badge/coverage-97%25-8b5cf6" alt="coverage"></a>
   <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-%3E%3D20-8b5cf6" alt="node"></a>
-  <a href="https://github.com/kalil0321/docs-expert/actions/workflows/ci.yml"><img src="https://github.com/kalil0321/docs-expert/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <a href="https://github.com/kalil0321/docs-expert"><img src="https://raw.githubusercontent.com/kalil0321/docs-expert/main/.github/badges/coverage.svg" alt="coverage"></a>
+  <a href="https://github.com/kalil0321/docs-expert/actions/workflows/ci.yml"><img src="https://img.shields.io/badge/CI-passing-8b5cf6" alt="CI"></a>
 </p>
 
 ---

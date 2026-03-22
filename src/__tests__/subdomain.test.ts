@@ -76,4 +76,76 @@ describe("detectSubdomain", () => {
       expect.any(Object),
     );
   });
+
+  it("detects subdomain via streaming body reader", async () => {
+    const encoder = new TextEncoder();
+    const html = '<script>{"subdomain":"streamed-sub"}</script>';
+    const body = new ReadableStream<Uint8Array>({
+      start(controller) {
+        controller.enqueue(encoder.encode(html));
+        controller.close();
+      },
+    });
+
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        statusText: "OK",
+        body,
+      }),
+    );
+
+    const result = await detectSubdomain("https://docs.example.com");
+    expect(result).toBe("streamed-sub");
+  });
+
+  it("reads multiple chunks from streaming body", async () => {
+    const encoder = new TextEncoder();
+    const body = new ReadableStream<Uint8Array>({
+      start(controller) {
+        controller.enqueue(encoder.encode("<html><head>"));
+        controller.enqueue(encoder.encode('<script>{"subdomain":"multi-chunk"}</script>'));
+        controller.close();
+      },
+    });
+
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        statusText: "OK",
+        body,
+      }),
+    );
+
+    const result = await detectSubdomain("https://docs.example.com");
+    expect(result).toBe("multi-chunk");
+  });
+
+  it("throws when streaming body has no subdomain", async () => {
+    const encoder = new TextEncoder();
+    const body = new ReadableStream<Uint8Array>({
+      start(controller) {
+        controller.enqueue(encoder.encode("<html>no subdomain</html>"));
+        controller.close();
+      },
+    });
+
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        statusText: "OK",
+        body,
+      }),
+    );
+
+    await expect(detectSubdomain("https://example.com")).rejects.toThrow(
+      "Could not auto-detect Mintlify subdomain",
+    );
+  });
 });
