@@ -1,0 +1,67 @@
+{
+  "name": "docs-expert",
+  "version": "0.1.0",
+  "description": "Query any documentation site's AI assistant — CLI + library. Supports Mintlify, GitBook, Fern, ReadMe, Inkeep, Vercel, Stripe, and more.",
+  "author": "kalil0321 <kalil.bouzigues@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "docs-expert": "dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "keywords": [
+    "docs",
+    "documentation",
+    "ai",
+    "cli",
+    "mintlify",
+    "gitbook",
+    "fern",
+    "readme",
+    "inkeep",
+    "vercel",
+    "stripe",
+    "ask-ai",
+    "docs-search",
+    "developer-tools"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rimraf dist",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc",
+    "verify": "npm run typecheck && npm run test && npm run build",
+    "prepublishOnly": "npm run verify"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.9.1",
+    "chalk": "^5.6.2",
+    "marked": "^15.0.12",
+    "marked-terminal": "^7.3.0"
+  },
+  "devDependencies": {
+    "@types/marked-terminal": "^6.1.1",
+    "@types/node": "^22.12.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.2"
+  },
+  "engines": {
+    "node": "^20.0.0 || >=22.0.0"
+  }
+}
