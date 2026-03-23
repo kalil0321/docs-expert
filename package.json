@@ -1,6 +1,6 @@
 {
   "name": "docs-expert",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Query any documentation site's AI assistant — CLI + library. Supports Mintlify, GitBook, Fern, ReadMe, Inkeep, Vercel, Stripe, and more.",
   "author": "kalil0321 <kalil.bouzigues@gmail.com>",
   "license": "MIT",
