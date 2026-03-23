@@ -149,6 +149,49 @@ const r2 = await client.ask("How do I set up billing?"); // has conversation con
 client.clearHistory();
 ```
 
+## MCP Server
+
+docs-expert ships as an [MCP](https://modelcontextprotocol.io) server, so any MCP-compatible host (Claude Desktop, Cursor, Claude Code, etc.) can query documentation directly.
+
+**Tools exposed:**
+
+| Tool | Description |
+|------|-------------|
+| `ask_docs` | Query any docs site (auto-detects provider from URL) |
+| `ask_mintlify_docs` | Query any Mintlify-powered site |
+| `ask_fern_docs` | Query any Fern-powered site |
+| `ask_gitbook_docs` | Query any GitBook-powered site |
+| `ask_readme_docs` | Query any ReadMe-powered site |
+| `ask_inkeep_docs` | Query any Inkeep-powered site |
+| `ask_claude_docs` | Query Claude/Anthropic docs |
+| `ask_stripe_docs` | Query Stripe docs |
+| `ask_vercel_docs` | Query Vercel docs |
+| `ask_better_auth_docs` | Query Better Auth docs |
+
+**Claude Desktop config** (`claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "docs-expert": {
+      "command": "docs-expert-mcp"
+    }
+  }
+}
+```
+
+**Claude Code** (`.mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "docs-expert": {
+      "command": "docs-expert-mcp"
+    }
+  }
+}
+```
+
 ## How it works
 
 docs-expert reverse-engineers the AI assistants that documentation platforms embed in their sites. Each provider has its own API pattern:

@@ -8,7 +8,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "docs-expert": "dist/cli.js"
+    "docs-expert": "dist/cli.js",
+    "docs-expert-mcp": "dist/mcp.js"
   },
   "exports": {
     ".": {
@@ -34,7 +35,9 @@
     "stripe",
     "ask-ai",
     "docs-search",
-    "developer-tools"
+    "developer-tools",
+    "mcp",
+    "model-context-protocol"
   ],
   "scripts": {
     "build": "tsup",
@@ -48,9 +51,11 @@
   },
   "dependencies": {
     "@clack/prompts": "^0.9.1",
+    "@modelcontextprotocol/sdk": "^1.27.1",
     "chalk": "^5.6.2",
     "marked": "^15.0.12",
-    "marked-terminal": "^7.3.0"
+    "marked-terminal": "^7.3.0",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@types/marked-terminal": "^6.1.1",

@@ -1,4 +1,5 @@
-export { ask, askStream, createClient } from "./providers/mintlify/client.js";
+// ask/askStream are the original names, kept for backward compatibility
+export { ask, ask as askMintlifyDocs, askStream, askStream as askMintlifyDocsStream, createClient } from "./providers/mintlify/client.js";
 export { askClaudeDocs, askClaudeDocsStream, askInkeepDocs, askInkeepDocsStream } from "./providers/claude.js";
 export { askStripeDocs, askStripeDocsStream } from "./providers/stripe.js";
 export { askGitBookDocs, askGitBookDocsStream } from "./providers/gitbook.js";

@@ -7,7 +7,7 @@ const pkg = JSON.parse(readFileSync('./package.json', 'utf8'));
 export default defineConfig({
   clean: true,
   dts: true,
-  entry: ['./src/index.ts', './src/cli.ts'],
+  entry: ['./src/index.ts', './src/cli.ts', './src/mcp.ts'],
   format: ['esm'],
   minify: !isDev,
   target: 'esnext',
