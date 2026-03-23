@@ -4,6 +4,7 @@ const SUBDOMAIN_PATTERNS = [
   /\/api\/assistant\/([a-zA-Z0-9-]+)\//,
   /data-subdomain="([a-zA-Z0-9-]+)"/,
   /\/mintlify-assets\/_mintlify\/[^/]+\/([a-zA-Z0-9-]+)\//,
+  /mintcdn\.com\/([a-zA-Z0-9-]+)\/[a-zA-Z0-9_-]+\//,
 ];
 
 const MAX_BYTES = 100_000;

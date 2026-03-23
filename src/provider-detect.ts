@@ -119,6 +119,7 @@ export async function detectProvider(url: string): Promise<ProviderName> {
   if (lower.includes("_mintlify"))          scores.mintlify += 10; // asset path like /_mintlify/
   if (lower.includes("mintlify.app"))       scores.mintlify += 10; // subdomain pattern
   if (lower.includes("leaves.mintlify"))    scores.mintlify += 10; // Mintlify API host
+  if (lower.includes("mintcdn.com"))        scores.mintlify += 10; // Mintlify CDN assets
   // Weaker signals
   if (lower.includes("mintlify"))           scores.mintlify += 2;  // generic mention (footer, etc.)
 
