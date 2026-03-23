@@ -133,3 +133,9 @@ dist
 api_mintlify_agent/
 claude_agent_ask_api/
 rae/
+
+# Data/scraping artifacts
+mintlify_sites.json
+gitbook_sites.json
+logo-showcase.html
+code.txt

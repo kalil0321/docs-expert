@@ -21,8 +21,10 @@ process.title = __NAME__;
 
 const v = chalk.hex("#8b5cf6");
 const vB = chalk.hex("#c084fc");
+const vD = chalk.hex("#6d28d9");
 const dim = chalk.dim;
 const bold = chalk.bold;
+const mono = chalk.hex("#a78bfa");
 
 let mdPromise: Promise<import("marked").Marked> | null = null;
 
@@ -57,19 +59,25 @@ async function renderMarkdown(content: string): Promise<string> {
 }
 
 function banner() {
+  const cols = Math.min(process.stdout.columns || 60, 60);
+  const bar = dim("─".repeat(cols));
   console.log();
-  console.log(`  ${vB("◆")} ${bold("docs-expert")} ${dim(`v${__VERSION__}`)}`);
+  console.log(`  ${bar}`);
+  console.log(`  ${vD("▸")} ${bold("docs-expert")} ${dim("///")} ${mono(`v${__VERSION__}`)}`);
   console.log(`  ${dim("query any documentation site's AI assistant")}`);
+  console.log(`  ${bar}`);
   console.log();
 }
 
 function separator(label: string) {
   const cols = Math.min(process.stdout.columns || 60, 60);
-  const line = dim("─".repeat(Math.max(cols - label.length - 4, 10)));
-  return `  ${dim("──")} ${vB(label)} ${line}`;
+  const tag = vD(`// ${label.toUpperCase()}`);
+  const tagLen = label.length + 3;
+  const line = dim("─".repeat(Math.max(cols - tagLen - 4, 10)));
+  return `  ${tag} ${line}`;
 }
 
-const SPINNER_FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
+const SPINNER_FRAMES = ["◜", "◠", "◝", "◞", "◡", "◟"];
 
 function createSpinner() {
   let frame = 0;
@@ -83,7 +91,7 @@ function createSpinner() {
         const f = v(SPINNER_FRAMES[frame % SPINNER_FRAMES.length]);
         process.stderr.write(`\r  ${f} ${dim(currentMsg)}`);
         frame++;
-      }, 80);
+      }, 100);
     },
     update(msg: string) {
       currentMsg = msg;
@@ -92,7 +100,7 @@ function createSpinner() {
       if (interval) clearInterval(interval);
       process.stderr.write(`\r${" ".repeat(process.stdout.columns || 60)}\r`);
       if (msg) {
-        console.error(`  ${v("✓")} ${dim(msg)}`);
+        console.error(`  ${v("■")} ${dim(msg)}`);
       }
     },
   };
@@ -216,7 +224,7 @@ async function main() {
             ? "How do I set up email and password auth?"
             : "How do I create a payment intent?";
       const result = await text({
-        message: `${v("◆")} Your question`,
+        message: `${vD("▸")} Your question`,
         placeholder,
       });
       if (isCancel(result)) {
@@ -240,7 +248,7 @@ async function main() {
 
     if (!url) {
       const result = await text({
-        message: `${v("◆")} GitBook docs URL`,
+        message: `${vD("▸")} GitBook docs URL`,
         placeholder: "https://docs.gitbook.com",
       });
       if (isCancel(result)) {
@@ -253,7 +261,7 @@ async function main() {
 
     if (!question) {
       const result = await text({
-        message: `${v("◆")} Your question`,
+        message: `${vD("▸")} Your question`,
         placeholder: "How does this work?",
       });
       if (isCancel(result)) {
@@ -271,7 +279,7 @@ async function main() {
 
     if (!url) {
       const result = await text({
-        message: `${v("◆")} Fern docs URL`,
+        message: `${vD("▸")} Fern docs URL`,
         placeholder: "https://openrouter.ai/docs",
       });
       if (isCancel(result)) {
@@ -284,7 +292,7 @@ async function main() {
 
     if (!question) {
       const result = await text({
-        message: `${v("◆")} Your question`,
+        message: `${vD("▸")} Your question`,
         placeholder: "How does this work?",
       });
       if (isCancel(result)) {
@@ -302,7 +310,7 @@ async function main() {
 
     if (!url) {
       const result = await text({
-        message: `${v("◆")} ReadMe docs URL`,
+        message: `${vD("▸")} ReadMe docs URL`,
         placeholder: "https://docs.readme.com",
       });
       if (isCancel(result)) {
@@ -315,7 +323,7 @@ async function main() {
 
     if (!question) {
       const result = await text({
-        message: `${v("◆")} Your question`,
+        message: `${vD("▸")} Your question`,
         placeholder: "How does this work?",
       });
       if (isCancel(result)) {
@@ -333,7 +341,7 @@ async function main() {
 
     if (!url) {
       const result = await text({
-        message: `${v("◆")} Inkeep-powered docs URL`,
+        message: `${vD("▸")} Inkeep-powered docs URL`,
         placeholder: "https://clerk.com/docs",
       });
       if (isCancel(result)) {
@@ -346,7 +354,7 @@ async function main() {
 
     if (!question) {
       const result = await text({
-        message: `${v("◆")} Your question`,
+        message: `${vD("▸")} Your question`,
         placeholder: "How does this work?",
       });
       if (isCancel(result)) {
@@ -364,7 +372,7 @@ async function main() {
 
     if (!url) {
       const result = await text({
-        message: `${v("◆")} Documentation site URL`,
+        message: `${vD("▸")} Documentation site URL`,
         placeholder: "https://docs.example.com",
       });
       if (isCancel(result)) {
@@ -377,7 +385,7 @@ async function main() {
 
     if (!question) {
       const result = await text({
-        message: `${v("◆")} Your question`,
+        message: `${vD("▸")} Your question`,
         placeholder: "How does authentication work?",
       });
       if (isCancel(result)) {
@@ -452,9 +460,11 @@ async function main() {
   if (response.searchResults.length > 0) {
     console.log(separator("Sources"));
     console.log();
-    for (const r of response.searchResults) {
-      console.log(`  ${v("◆")} ${bold(r.title)}`);
-      console.log(`    ${dim(r.href)}`);
+    for (let i = 0; i < response.searchResults.length; i++) {
+      const r = response.searchResults[i];
+      const num = mono(String(i + 1).padStart(2, "0"));
+      console.log(`  ${num} ${bold(r.title)}`);
+      console.log(`     ${dim(r.href)}`);
     }
     console.log();
   }
@@ -464,7 +474,7 @@ async function main() {
     console.log(separator("Suggested"));
     console.log();
     for (const s of response.suggestions) {
-      console.log(`  ${v("→")} ${s}`);
+      console.log(`  ${vD("▸")} ${s}`);
     }
     console.log();
   }

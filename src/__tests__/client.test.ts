@@ -176,7 +176,7 @@ describe("ask", () => {
     });
 
     expect(response.content).toBe("Some answer");
-    expect(response.suggestions).toEqual(["/start", "/api"]);
+    expect(response.suggestions).toEqual(["https://docs.example.com/start", "https://docs.example.com/api"]);
   });
 });
 

@@ -37,20 +37,22 @@ Supports **9 providers** out of the box:
 | [Inkeep](https://inkeep.com) | `--inkeep <url>` | Any Inkeep-powered site (Clerk, ...) — auto-detects API key |
 
 ```
-  ◆ docs-expert v0.1.0
+  ──────────────────────────────────────────────────────
+  ▸ docs-expert /// v0.1.0
   query any documentation site's AI assistant
+  ──────────────────────────────────────────────────────
 
-  ✓ Done.
+  ■ Done.
 
-  ── Answer ──────────────────────────────────────────────
+  // ANSWER ────────────────────────────────────────────
 
   Metronome is a billing platform that transforms your
   customers' usage into precise, tailored invoices...
 
-  ── Sources ─────────────────────────────────────────────
+  // SOURCES ───────────────────────────────────────────
 
-  ◆ How Metronome works
-    https://docs.metronome.com/guides/get-started/how-metronome-works
+  01 How Metronome works
+     https://docs.metronome.com/guides/get-started/how-metronome-works
 ```
 
 ## Install

@@ -168,8 +168,11 @@ async function collectStream(
   const rawContent = textParts.join("");
   const { cleanContent, suggestions } = parseSuggestions(rawContent);
   searchResults = resolveSearchResultHrefs(searchResults, docsUrl);
+  const resolvedSuggestions = suggestions.map((s) =>
+    s.startsWith("/") ? `${docsUrl}${s}` : s,
+  );
 
-  return { content: cleanContent, messageId, searchResults, suggestions, usage };
+  return { content: cleanContent, messageId, searchResults, suggestions: resolvedSuggestions, usage };
 }
 
 async function* iterateStream(
@@ -200,10 +203,13 @@ async function* iterateStream(
 
   const rawContent = textParts.join("");
   const { cleanContent, suggestions } = parseSuggestions(rawContent);
+  const resolvedSuggestions = suggestions.map((s) =>
+    s.startsWith("/") ? `${docsUrl}${s}` : s,
+  );
 
   yield {
     type: "done",
-    response: { content: cleanContent, messageId, searchResults, suggestions, usage },
+    response: { content: cleanContent, messageId, searchResults, suggestions: resolvedSuggestions, usage },
   };
 }
 
