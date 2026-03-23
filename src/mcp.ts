@@ -17,7 +17,7 @@ import type { DocsExpertResponse } from "./types.js";
 
 const server = new McpServer({
   name: "docs-expert",
-  version: "0.1.0",
+  version: "0.2.0",
 });
 
 function formatResponse(response: DocsExpertResponse): string {
