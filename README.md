@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <strong>Query any documentation site's AI assistant from the terminal</strong>
+  <strong>Query any documentation site's AI assistant</strong>
 </p>
 
 <p align="center">
