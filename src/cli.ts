@@ -16,6 +16,7 @@ import { askBetterAuthDocsStream } from "./providers/better-auth.js";
 import { resolveProvider, invalidateCachedProvider } from "./provider-detect.js";
 import type { ProviderName } from "./provider-detect.js";
 import type { DocsExpertResponse, StreamEvent } from "./types.js";
+import { maybePrintUpgradeBanner } from "./cli-upgrade-banner.js";
 
 process.title = __NAME__;
 
@@ -208,7 +209,10 @@ async function main() {
   const inkeepFlag = args.includes("--inkeep");
   const positional = args.filter((a) => !a.startsWith("--") && !a.startsWith("-"));
 
-  if (!jsonFlag) banner();
+  if (!jsonFlag) {
+    banner();
+    await maybePrintUpgradeBanner(__NAME__, __VERSION__);
+  }
 
   let streamSource: AsyncGenerator<StreamEvent>;
 
