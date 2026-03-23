@@ -9,8 +9,6 @@ jobs:
   verify:
     name: Typecheck, Test & Build
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -19,29 +17,5 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run typecheck
-      - run: npm run test -- --coverage
+      - run: npm test
       - run: npm run build
-
-      # Generate coverage badge from JSON summary
-      - name: Generate coverage badge
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: |
-          COVERAGE=$(node -e "
-            const r = JSON.parse(require('fs').readFileSync('coverage/coverage-summary.json','utf8'));
-            console.log(Math.round(r.total.statements.pct));
-          ")
-          if [ "$COVERAGE" -ge 90 ]; then COLOR="brightgreen";
-          elif [ "$COVERAGE" -ge 80 ]; then COLOR="green";
-          elif [ "$COVERAGE" -ge 70 ]; then COLOR="yellow";
-          else COLOR="red"; fi
-          mkdir -p .github/badges
-          curl -s "https://img.shields.io/badge/coverage-${COVERAGE}%25-${COLOR}" > .github/badges/coverage.svg
-
-      - name: Commit coverage badge
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        continue-on-error: true
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .github/badges/coverage.svg
-          git diff --cached --quiet || git commit -m "ci: update coverage badge" && git push
